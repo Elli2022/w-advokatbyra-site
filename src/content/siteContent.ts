@@ -180,6 +180,35 @@ export const siteContent = {
     "En rådgivningsnivå anpassad efter beslutets affärspåverkan.",
     "Snabb återkoppling när frågan kräver tempo och struktur.",
   ],
+  fallbackInsights: [
+    {
+      category: "Analys från byrån",
+      description:
+        "När marknaden rör sig snabbt behöver avtal vara tydliga i riskfördelning, omförhandling och ansvarskedjor.",
+      id: "fallback-contracts",
+      image: lawFirmBanner,
+      publishedAt: "2026-04-18",
+      title: "Så bygger vi robusta avtal i osäkra tider",
+    },
+    {
+      category: "Analys från byrån",
+      description:
+        "Ledningsteam som arbetar strukturerat med beslutsunderlag och kommunikation står starkare när trycket ökar.",
+      id: "fallback-management",
+      image: lawFirmPicture,
+      publishedAt: "2026-04-12",
+      title: "Tre frågor ledningen bör ställa innan nästa större beslut",
+    },
+    {
+      category: "Analys från byrån",
+      description:
+        "Regelverk, datahantering och kommersiella krav behöver sättas ihop till ett sammanhängande arbetssätt, inte flera parallella spår.",
+      id: "fallback-compliance",
+      image: employees2,
+      publishedAt: "2026-04-06",
+      title: "Compliance som faktiskt går att använda i vardagen",
+    },
+  ],
   workPhases: [
     {
       title: "Orientering",

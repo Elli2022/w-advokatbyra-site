@@ -20,6 +20,13 @@ describe("app routing", () => {
         name: /Juridik som skapar handlingsutrymme/i,
       })
     ).toBeInTheDocument();
+
+    expect(
+      await screen.findByRole("heading", {
+        level: 3,
+        name: /Så bygger vi robusta avtal i osäkra tider/i,
+      })
+    ).toBeInTheDocument();
   });
 
   it("renders the not found page for unknown routes", async () => {

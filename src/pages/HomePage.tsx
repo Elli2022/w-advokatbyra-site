@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { HeroShowcase } from "../components/HeroShowcase";
+import { NewsFeed } from "../components/NewsFeed";
 import { siteContent } from "../content/siteContent";
 
 export const handle = {
@@ -59,6 +60,8 @@ export function Component() {
           ))}
         </div>
       </section>
+
+      <NewsFeed />
 
       <section className="page-section page-section--editorial">
         <div className="section-heading section-heading--compact">
