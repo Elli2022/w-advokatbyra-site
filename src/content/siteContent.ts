@@ -3,6 +3,10 @@ import lawFirmPicture from "../images/lawFirmPicture.jpeg";
 import employees1 from "../images/employees1.jpg";
 import employees2 from "../images/employees2.jpg";
 import managingDirector from "../images/managingDirector.jpg";
+import backgroundVideo1 from "../videos/BackgroundVideo1.mp4";
+import backgroundVideo2 from "../videos/BackgroundVideo2.mp4";
+import backgroundVideo3 from "../videos/BackgroundVideo3.mp4";
+import backgroundVideo4 from "../videos/BackgroundVideo4.mp4";
 
 export const siteContent = {
   brandName: "W Advokatbyrå",
@@ -30,6 +34,26 @@ export const siteContent = {
       href: "/contact",
     },
   },
+  heroVideos: [
+    backgroundVideo1,
+    backgroundVideo2,
+    backgroundVideo3,
+    backgroundVideo4,
+  ],
+  heroHighlights: [
+    {
+      value: "Affärsnära",
+      label: "Vi översätter juridiken till beslut som går att agera på.",
+    },
+    {
+      value: "Tillgängliga team",
+      label: "Rätt specialist nära när uppdraget växlar tempo.",
+    },
+    {
+      value: "Långsiktig riktning",
+      label: "Vi bygger lösningar som håller även när förutsättningarna ändras.",
+    },
+  ],
   focusAreas: [
     {
       title: "Bolagsrätt och transaktioner",
@@ -50,6 +74,23 @@ export const siteContent = {
       title: "Dataskydd och compliance",
       description:
         "Robusta processer för reglerade miljöer, intern styrning och hållbara beslut.",
+    },
+  ],
+  insightCards: [
+    {
+      title: "Klarare beslutsunderlag",
+      description:
+        "Vi prioriterar tydliga rekommendationer framför långa promemorior som lämnar affären stillastående.",
+    },
+    {
+      title: "Högre motståndskraft",
+      description:
+        "Avtal, processer och riskhantering byggs för att fungera även när omvärlden förändras snabbt.",
+    },
+    {
+      title: "Ett lugnare genomförande",
+      description:
+        "Komplexitet bryts ned till nästa bästa steg, så att organisationen kan röra sig framåt med kontroll.",
     },
   ],
   values: [
@@ -93,31 +134,37 @@ export const siteContent = {
       title: "Arbetsrätt och ledningsstöd",
       description:
         "Strategiskt stöd i omställningar, avtal, internutredningar och känsliga personalfrågor.",
+      keywords: ["personal", "ledning", "ombildning", "internutredning"],
     },
     {
       title: "Bank, finans och investeringar",
       description:
         "Rådgivning i finansieringsstrukturer, regulatoriska frågor och transaktionsnära processer.",
+      keywords: ["finans", "regulatorik", "investering", "transaktion"],
     },
     {
       title: "Fastighetsrätt",
       description:
         "Avtal, tvister, förvärv och utvecklingsprojekt med fokus på tydlig riskfördelning.",
+      keywords: ["fastighet", "entreprenad", "förvärv", "hyra"],
     },
     {
       title: "Data, teknik och immaterialrätt",
       description:
         "Stöd i digitalisering, kommersiella avtal, IP-frågor och datadriven verksamhet.",
+      keywords: ["data", "teknik", "ip", "digitalisering"],
     },
     {
       title: "Tvistelösning",
       description:
         "Processföring och förlikningsstrategier som kombinerar juridisk skärpa med affärsmässig kontroll.",
+      keywords: ["tvist", "process", "förlikning", "konflikt"],
     },
     {
       title: "Hållbarhet och styrning",
       description:
         "Praktisk rådgivning kring ESG, policyarbete, styrelseansvar och interna kontrollmiljöer.",
+      keywords: ["esg", "policy", "styrning", "hållbarhet"],
     },
   ],
   sectors: [
@@ -132,6 +179,23 @@ export const siteContent = {
     "Tydlig vägledning om nästa steg i ärendet.",
     "En rådgivningsnivå anpassad efter beslutets affärspåverkan.",
     "Snabb återkoppling när frågan kräver tempo och struktur.",
+  ],
+  workPhases: [
+    {
+      title: "Orientering",
+      description:
+        "Vi ringar in affärskontext, risknivå och vilket beslut som faktiskt behöver tas.",
+    },
+    {
+      title: "Riktning",
+      description:
+        "Du får en rekommendation som väger juridik, tempo och kommersiella konsekvenser mot varandra.",
+    },
+    {
+      title: "Genomförande",
+      description:
+        "Vi följer upp med förhandling, dokumentation eller process beroende på vad uppdraget kräver.",
+    },
   ],
   managingPartner: {
     name: "Lisa Larsson",

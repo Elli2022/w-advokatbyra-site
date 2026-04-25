@@ -4,12 +4,14 @@ import {
   type RouteObject,
 } from "react-router";
 import App from "./App";
+import { PageLoader } from "./components/PageLoader";
 import { RouteErrorPage } from "./pages/RouteErrorPage";
 
 export const routes: RouteObject[] = [
   {
     path: "/",
     Component: App,
+    HydrateFallback: PageLoader,
     errorElement: <RouteErrorPage />,
     children: [
       {

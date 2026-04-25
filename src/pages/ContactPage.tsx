@@ -46,6 +46,28 @@ export function Component() {
           </ul>
         </div>
       </section>
+
+      <section className="page-section page-section--split page-section--editorial">
+        <div className="media-panel">
+          <img
+            src={siteContent.imagery.office}
+            alt="Mötesmiljö hos W Advokatbyrå"
+            loading="lazy"
+          />
+        </div>
+        <div className="content-panel">
+          <p className="eyebrow">Så ser processen ut</p>
+          <h2>Från första kontakt till genomförd lösning.</h2>
+          <div className="feature-list">
+            {siteContent.workPhases.map((phase) => (
+              <div key={phase.title} className="feature-list__panel">
+                <strong>{phase.title}</strong>
+                <p>{phase.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }

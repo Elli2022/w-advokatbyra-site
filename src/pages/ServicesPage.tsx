@@ -1,3 +1,4 @@
+import { PracticeDirectory } from "../components/PracticeDirectory";
 import { siteContent } from "../content/siteContent";
 
 export const handle = {
@@ -19,16 +20,7 @@ export function Component() {
         </div>
       </section>
 
-      <section className="page-section">
-        <div className="card-grid">
-          {siteContent.services.map((service) => (
-            <article key={service.title} className="card">
-              <h2>{service.title}</h2>
-              <p>{service.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+      <PracticeDirectory />
 
       <section className="page-section page-section--accent">
         <div className="section-heading">
@@ -40,6 +32,18 @@ export function Component() {
             <span key={sector} className="tag">
               {sector}
             </span>
+          ))}
+        </div>
+      </section>
+
+      <section className="page-section">
+        <div className="card-grid">
+          {siteContent.workPhases.map((phase) => (
+            <article key={phase.title} className="card">
+              <p className="card__kicker">Så arbetar vi</p>
+              <h3>{phase.title}</h3>
+              <p>{phase.description}</p>
+            </article>
           ))}
         </div>
       </section>

@@ -15,7 +15,7 @@ export function Component() {
         </div>
       </section>
 
-      <section className="page-section page-section--split">
+      <section className="page-section page-section--split page-section--editorial">
         <div className="content-panel">
           {siteContent.aboutSections.map((section) => (
             <article key={section.title} className="stacked-copy">
@@ -35,6 +35,18 @@ export function Component() {
             alt="Rådgivningsmiljö på kontoret"
             loading="lazy"
           />
+        </div>
+      </section>
+
+      <section className="page-section">
+        <div className="card-grid">
+          {siteContent.values.map((value) => (
+            <article key={value.title} className="card card--soft">
+              <p className="card__kicker">Vårt arbetssätt</p>
+              <h3>{value.title}</h3>
+              <p>{value.description}</p>
+            </article>
+          ))}
         </div>
       </section>
 

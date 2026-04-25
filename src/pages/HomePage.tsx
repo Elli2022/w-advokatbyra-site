@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { PageHero } from "../components/PageHero";
+import { HeroShowcase } from "../components/HeroShowcase";
 import { siteContent } from "../content/siteContent";
 
 export const handle = {
@@ -9,16 +9,10 @@ export const handle = {
 export function Component() {
   return (
     <>
-      <PageHero
-        eyebrow={siteContent.hero.eyebrow}
-        title={siteContent.hero.title}
-        description={siteContent.hero.description}
-        primaryAction={siteContent.hero.primaryAction}
-        secondaryAction={siteContent.hero.secondaryAction}
-      />
+      <HeroShowcase />
 
-      <section className="page-section">
-        <div className="section-heading">
+      <section className="page-section page-section--editorial">
+        <div className="section-heading section-heading--compact">
           <p className="eyebrow">Det här gör vi bäst</p>
           <h2>Rådgivning som är byggd för verkliga beslut.</h2>
         </div>
@@ -61,6 +55,21 @@ export function Component() {
             <article key={value.title} className="card card--soft">
               <h3>{value.title}</h3>
               <p>{value.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="page-section page-section--editorial">
+        <div className="section-heading section-heading--compact">
+          <p className="eyebrow">Det klienterna märker först</p>
+          <h2>Mer framdrift, mindre friktion.</h2>
+        </div>
+        <div className="card-grid">
+          {siteContent.insightCards.map((card) => (
+            <article key={card.title} className="card card--contrast">
+              <h3>{card.title}</h3>
+              <p>{card.description}</p>
             </article>
           ))}
         </div>
