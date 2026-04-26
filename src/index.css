@@ -247,16 +247,18 @@ select {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
-  gap: 2rem;
-  align-items: end;
+  grid-template-columns: minmax(0, 1.08fr) minmax(18rem, 22rem);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: stretch;
   min-height: inherit;
   padding: clamp(1.5rem, 4vw, 3rem);
 }
 
 .hero-showcase__copy {
+  align-self: end;
   min-width: 0;
   max-width: min(38rem, 100%);
+  padding-inline-end: clamp(0rem, 1vw, 0.75rem);
 }
 
 .hero-showcase__copy h1 {
@@ -264,22 +266,31 @@ select {
   font-family: "Cormorant Garamond", "Baskerville", serif;
   line-height: 0.98;
   letter-spacing: -0.03em;
-  font-size: clamp(3.8rem, 10vw, 6.8rem);
+  max-width: 8ch;
+  font-size: clamp(3.5rem, 9vw, 6.4rem);
+  text-wrap: balance;
 }
 
 .hero-showcase__description {
-  max-width: 44rem;
+  max-width: 34rem;
   color: var(--muted);
   font-size: 1.08rem;
+  text-wrap: pretty;
 }
 
 .hero-showcase__highlights {
   min-width: 0;
   display: grid;
   gap: 1rem;
+  align-self: center;
+  width: min(100%, 22rem);
+  margin-left: auto;
 }
 
 .hero-highlight {
+  display: grid;
+  align-content: start;
+  min-height: 100%;
   padding: 1.2rem 1.3rem;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 24px;
@@ -292,11 +303,13 @@ select {
   color: var(--text);
   font-size: 1.25rem;
   font-weight: 800;
+  text-wrap: balance;
 }
 
 .hero-highlight__label {
   margin: 0;
   color: var(--muted);
+  text-wrap: pretty;
 }
 
 .page-hero {
@@ -318,6 +331,7 @@ select {
   font-family: "Cormorant Garamond", "Baskerville", serif;
   line-height: 0.98;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 .page-hero h1,
@@ -340,6 +354,7 @@ select {
   max-width: 62ch;
   color: var(--muted);
   font-size: 1.05rem;
+  text-wrap: pretty;
 }
 
 .page-hero__actions {
@@ -459,7 +474,8 @@ select {
 .card h2,
 .card h3 {
   margin: 0 0 0.8rem;
-  font-size: 1.9rem;
+  font-size: clamp(1.6rem, 3.4vw, 1.9rem);
+  overflow-wrap: anywhere;
 }
 
 .card__kicker {
@@ -749,8 +765,10 @@ select {
 .news-card__body h3 {
   margin: 0;
   font-family: "Cormorant Garamond", "Baskerville", serif;
-  font-size: 2rem;
+  font-size: clamp(1.55rem, 4.2vw, 2rem);
   line-height: 1.02;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
 }
 
 .news-card__meta {
@@ -784,9 +802,9 @@ select {
   }
 }
 
-@media (max-width: 1220px) {
+@media (max-width: 1360px) {
   .hero-showcase {
-    min-height: min(84vh, 920px);
+    min-height: min(80vh, 920px);
   }
 
   .hero-showcase__content {
@@ -796,24 +814,26 @@ select {
 
   .hero-showcase__copy {
     max-width: min(44rem, 100%);
+    padding-inline-end: 0;
   }
 
   .hero-showcase__copy h1 {
-    max-width: 9ch;
-    font-size: clamp(3.3rem, 8vw, 5.8rem);
+    max-width: 8ch;
+    font-size: clamp(3.2rem, 7.6vw, 5.8rem);
   }
 
   .hero-showcase__highlights {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+    margin-left: 0;
+    align-self: start;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 960px) {
-  .card-grid,
+@media (max-width: 1024px) {
   .page-section--split,
   .quote-panel,
   .site-footer__inner,
-  .hero-showcase__content,
   .practice-directory__header {
     grid-template-columns: 1fr;
   }
@@ -822,13 +842,27 @@ select {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .hero-showcase__copy h1 {
+    max-width: 7ch;
+    font-size: clamp(2.9rem, 10vw, 4.7rem);
+  }
+
+  .hero-showcase__description {
+    max-width: 32rem;
+  }
+
   .hero-showcase__highlights {
+    max-width: 34rem;
     grid-template-columns: 1fr;
   }
 
   .news-feed__header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .news-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .site-header__menu-button {
@@ -861,7 +895,24 @@ select {
   }
 
   .hero-showcase {
-    min-height: 620px;
+    min-height: auto;
+  }
+
+  .hero-showcase__content {
+    padding: 1.25rem;
+  }
+
+  .hero-showcase__copy h1 {
+    max-width: 6ch;
+    font-size: clamp(2.65rem, 13vw, 4rem);
+  }
+
+  .hero-showcase__description {
+    font-size: 1rem;
+  }
+
+  .hero-highlight {
+    padding: 1.1rem 1rem;
   }
 
   .card-grid {
