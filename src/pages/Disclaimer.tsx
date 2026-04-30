@@ -1,50 +1,32 @@
 import Navbar from "../components/Navbar";
 import Banner from "../components/Banner";
 import Footer from "../components/Footer";
+import Container from "../components/Container";
 
 function Disclaimer() {
   return (
     <>
       <Navbar />
-      <Banner />
-      <div>
-        <h2
-          style={{
-            fontFamily: "MonumentGrotesk-Regular,helvetica,arial,sans-serif",
-            color: "white",
-            // display: "flex",
-            fontSize: "calc(18px + 0.5vw)",
-            maxWidth: "800px",
-            lineHeight: "1.6",
-            margin: "26px auto",
-            padding: "10px",
-          }}
-        >
-          Friskrivning
-        </h2>
-        <p
-          style={{
-            color: "white",
-            // display: "flex",
-            fontFamily: "adobe-caslon-pro,times,georgia,serif",
-            fontSize: "calc(18px + 0.5vw)",
-            maxWidth: "800px",
-            lineHeight: "1.6",
-            margin: "26px auto",
-            padding: "10px",
-          }}
-        >
-          Information som publiceras på Wernberg Advokatbyrå AB:s hemsida är
-          endast avsedd som allmän information och utgör inte, och ska heller
-          inte användas som, professionell juridisk rådgivning. Det finns risk
-          att innehållet inte är uttömmande eller fullständigt uppdaterat.
-          Eventuell användning av informationen på denna hemsida sker på
-          användarens egen risk. Wernberg Advokatbyrå AB ansvarar inte för, och
-          har inga förpliktelser i förhållande till, information på Wernberg
-          Advokatbyrå AB:s hemsida eller information på annan hemsida med länk
-          till eller från Wernberg Advokatbyrå AB:s hemsida.
-        </p>
-      </div>
+      <main>
+        <Banner />
+        <Container className="page-intro">
+          <p className="eyebrow">Disclaimer</p>
+          <h1 className="page-title">Friskrivning</h1>
+          <p className="copy-block">
+            Information som publiceras på W Advokatbyrås hemsida är endast
+            avsedd som allmän information och utgör inte professionell juridisk
+            rådgivning. Innehållet kan vara förenklat och det finns risk att
+            information inte är fullständigt uppdaterad i varje enskilt fall.
+          </p>
+          <p className="copy-block">
+            Eventuell användning av informationen på hemsidan sker på
+            användarens egen risk. W Advokatbyrå ansvarar inte för beslut som
+            fattas enbart på grundval av information som publicerats här, eller
+            för innehåll på externa sidor som länkas till eller från denna
+            webbplats.
+          </p>
+        </Container>
+      </main>
       <Footer />
     </>
   );

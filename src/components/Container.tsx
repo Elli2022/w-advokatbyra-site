@@ -1,7 +1,14 @@
 import React from "react";
 
-function Container({ children }: { children?: React.ReactNode }) {
-  return <div style={{ padding: "20px" }}>{children}</div>;
+function Container({
+  children,
+  className = "",
+}: {
+  children?: React.ReactNode;
+  className?: string;
+}) {
+  const classes = ["section-shell", className].filter(Boolean).join(" ");
+  return <div className={classes}>{children}</div>;
 }
 
 export default Container;

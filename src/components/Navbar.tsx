@@ -1,17 +1,24 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import Title from "./Title";
-import { Navbar, Nav } from "react-bootstrap"; 
+import { Nav, Navbar as BootstrapNavbar } from "react-bootstrap";
 
 function NavbarComponent() {
   return (
-    <Navbar bg="black" variant="dark" expand="lg">
-      <Navbar.Brand>
+    <BootstrapNavbar
+      expand="lg"
+      variant="dark"
+      className="site-nav"
+      sticky="top"
+    >
+      <BootstrapNavbar.Brand as={Link} to="/" className="site-nav__brand">
         <Title />
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ml-auto">
+      </BootstrapNavbar.Brand>
+      <BootstrapNavbar.Toggle
+        aria-controls="site-navbar-nav"
+        className="site-nav__toggle"
+      />
+      <BootstrapNavbar.Collapse id="site-navbar-nav">
+        <Nav className="ms-auto site-nav__links">
           <Nav.Link as={Link} to="/">
             Hem
           </Nav.Link>
@@ -25,8 +32,8 @@ function NavbarComponent() {
             Kontakt
           </Nav.Link>
         </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+      </BootstrapNavbar.Collapse>
+    </BootstrapNavbar>
   );
 }
 

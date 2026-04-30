@@ -1,73 +1,48 @@
-import React from "react";
-
 function Expertis() {
-  const verksamhetsomraden = [
-    "Arbetsrätt och pensioner",
-    "Bank och finans",
-    "Contentious Regulatory",
-    "Corporate Commercial",
-    "Corporate Investigations and Corporate Crime",
-    "Corporate Sustainability and Risk Management",
-    "Data Privacy",
-    "Emerging and Growth Companies",
-    "Entreprenadrätt",
-    "EU- och konkurrensrätt",
-    "Fastighetsrätt",
-    "Finansiell reglering",
-    "Fonder och investeringar",
-    "Företagsbeskattning",
+  const expertisePairs = [
+    {
+      area: "Arbetsrätt och pensioner",
+      industry: "Finansiella institutioner och snabbväxande bolag",
+    },
+    {
+      area: "Bank och finans",
+      industry: "Private equity, fintech och kapitalintensiva projekt",
+    },
+    {
+      area: "Entreprenad och fastighetsrätt",
+      industry: "Construction, infrastruktur och kommersiell fastighet",
+    },
+    {
+      area: "EU- och konkurrensrätt",
+      industry: "Reglerade marknader och internationell expansion",
+    },
+    {
+      area: "Data Privacy och compliance",
+      industry: "Tech, media och life science",
+    },
+    {
+      area: "Företagsbeskattning",
+      industry: "Ägarledda bolag, fonder och investeringar",
+    },
   ];
-
-  const branscher = [
-    "Construction, Infrastructure and Industrial Projects",
-    "Energi",
-    "Fastighet",
-    "Finansiella institutioner",
-    "Fintech",
-    "Fordonsindustri",
-    "Healthcare and Life Sciences",
-    "Media och underhållning",
-    "Private Equity",
-    "Shipping, Transport and Logistics",
-    "Technology",
-    "Sustainability and ESG",
-  ];
-
-  const containerStyle = {
-    display: "flex",
-    justifyContent: "space-between", 
-    alignItems: "center",
-    padding: "0 16px", 
-  };
-
-  const tableStyle = {
-    maxWidth: "400px", 
-    width: "100%",
-    fontSize: "calc(12px + 0.5vw)",
-    margin: window.innerWidth > 400 ? "50px auto" : "50px 16px 0px",
-    color: "white",
-    padding: "10px",
-  };
 
   return (
-    <div style={containerStyle}>
-      <table style={tableStyle}>
-        <thead>
-          <tr>
-            <th>Verksamhetsområden</th>
-            <th>Branscher</th>
-          </tr>
-        </thead>
-        <tbody>
-          {verksamhetsomraden.map((item, index) => (
-            <tr key={index}>
-              <td>{item}</td>
-              <td>{branscher[index] || ""}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <section className="section-shell content-stack">
+      <p className="eyebrow">Kompetens</p>
+      <h2 className="section-title">Verksamhetsområden och branscher</h2>
+      <div className="expertise-grid">
+        {expertisePairs.map((item) => (
+          <article className="expertise-card" key={item.area}>
+            <strong>Verksamhetsområde</strong>
+            <h3>{item.area}</h3>
+            <p>
+              <strong>Vanliga uppdrag</strong>
+            </p>
+            <p>{item.industry}</p>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }
 

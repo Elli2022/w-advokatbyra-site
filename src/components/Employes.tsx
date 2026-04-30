@@ -1,14 +1,16 @@
-import employees1 from "../images/employees1.jpg";
+import employees1 from "../images/generated/team-boardroom.png";
 
 function EmployesImage1() {
   return (
-    <div style={{ width: "100%", height: "100%" }}>
-      <img
-        src={employees1}
-        alt="employePicture"
-        style={{ width: "100%", height: "100%" }}
-      />
-    </div>
+    <section className="section-shell">
+      <div className="image-panel">
+        <img
+          src={employees1}
+          alt="Jurister i samtal vid konferensbord"
+          className="feature-image"
+        />
+      </div>
+    </section>
   );
 }
 

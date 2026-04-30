@@ -1,63 +1,36 @@
-import lawFirmBanner from "../images/lawFirmBanner.jpg";
+import lawFirmBanner from "../images/generated/hero-law-firm.png";
 import { Link } from "react-router-dom";
+import Container from "./Container";
 
 function LargeBanner() {
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "100%",
-        overflow: "hidden",
-      }}
-    >
-      <img
-        src={lawFirmBanner}
-        alt="Stor bannerbild"
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          top: "70%",
-          left: "40%",
-          transform: "translate(-50%, -50%)",
-          color: "white",
-          textAlign: "left",
-          backgroundColor: "rgba(0, 0, 0, 0)", 
-        }}
-      >
-        <h2
-          style={{
-            backgroundColor: "rgba(0, 0, 0, 0)",
-            color: "white",
-            position: "relative",
-            // top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            textAlign: "left",
-            fontFamily: "Caslon224Std-Book,times,georgia,serif",
-            fontWeight: 300,
-            lineHeight: 1.2,
-            fontSize: "34px",
-          }}
-        >
-          Välkommen till W Advokatbyrå
-        </h2>
-        <div
-          className="föräldrarelement"
-          style={{ backgroundColor: "transparent" }}
-        >
-          <Link to="/about" className="buttonStyle">
-            Om oss
-          </Link>
+    <Container>
+      <section className="hero">
+        <div className="hero__media" aria-hidden="true">
+          <img src={lawFirmBanner} alt="" className="hero__image" />
         </div>
-      </div>
-    </div>
+        <div className="hero__overlay" />
+        <div className="hero__content">
+          <p className="eyebrow">Affärsjuridik med lugn precision</p>
+          <h1 className="hero__title">
+            Trygg juridisk rådgivning för företag och entreprenörer.
+          </h1>
+          <p className="hero__copy">
+            W Advokatbyrå kombinerar affärsmässig skärpa med nära samarbete.
+            Vi hjälper klienter att fatta tydliga beslut, hantera risk och
+            bygga långsiktigt hållbara affärer.
+          </p>
+          <div className="hero__actions">
+            <Link to="/about" className="button button--primary">
+              Lär känna byrån
+            </Link>
+            <Link to="/contact" className="button button--secondary">
+              Boka ett första samtal
+            </Link>
+          </div>
+        </div>
+      </section>
+    </Container>
   );
 }
 

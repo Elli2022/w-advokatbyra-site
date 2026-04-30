@@ -3,6 +3,13 @@
 ## Overview
 This repository contains the source code for the W Advokatbyrå website, a comprehensive React application designed to present the firm's information, services, and updates in a visually appealing and user-friendly manner. The application includes multiple components and pages, integrating video backgrounds, image displays, and dynamic news content. This project is a hobby endeavor for a Swedish law firm.
 
+## Mobile-first and deployment
+
+- The current UI is structured mobile-first and scales upward for tablet and desktop.
+- Netlify build settings live in `netlify.toml`.
+- Continuous validation and optional Netlify deployment live in `.github/workflows/netlify-deploy.yml`.
+- Versioning guidance for keeping releases in the same repository lives in `docs/versioning-and-deploy.md`.
+
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)

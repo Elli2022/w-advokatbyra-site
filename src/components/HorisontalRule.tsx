@@ -1,16 +1,8 @@
 
-
 function HorisontalRule() {
   return (
-    <div>
-      <hr
-        style={{
-          borderColor: "white",
-          borderWidth: "2px",
-          borderStyle: "solid",
-          margin: "50px 70px",
-        }}
-      />
+    <div className="section-shell">
+      <hr className="site-rule" />
     </div>
   );
 }

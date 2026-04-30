@@ -10,11 +10,13 @@ function Home() {
   return (
     <>
       <Navbar />
-      <Banner />
-      <LargeBanner />
-      <Video />
-      <NewsSection />
-      <HorisontalRule />
+      <main>
+        <Banner />
+        <LargeBanner />
+        <Video />
+        <NewsSection />
+        <HorisontalRule />
+      </main>
       <Footer />
     </>
   );

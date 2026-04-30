@@ -1,11 +1,6 @@
 
-
 function Banner() {
-  return (
-    <div
-      style={{ backgroundColor: "black", width: "100%", height: "30px" }}
-    ></div>
-  );
+  return <div className="site-banner" aria-hidden="true" />;
 }
 
 export default Banner;
