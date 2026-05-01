@@ -1,15 +1,18 @@
 :root {
   --color-bg: #06080d;
-  --color-surface: rgba(16, 22, 32, 0.9);
-  --color-surface-strong: rgba(10, 14, 20, 0.94);
-  --color-border: rgba(201, 166, 107, 0.26);
-  --color-accent: #c9a66b;
-  --color-accent-soft: rgba(201, 166, 107, 0.12);
-  --color-text: #f5f1ea;
-  --color-muted: #cec1aa;
-  --color-subtle: #99a1ad;
-  --shadow-soft: 0 22px 54px rgba(0, 0, 0, 0.35);
-  --shadow-card: 0 18px 40px rgba(0, 0, 0, 0.25);
+  --color-surface: rgba(20, 27, 38, 0.96);
+  --color-surface-strong: rgba(12, 17, 26, 0.96);
+  --color-border: rgba(223, 191, 122, 0.42);
+  --color-accent: #dfbf7a;
+  --color-accent-hover: #e8cd90;
+  --color-accent-soft: rgba(223, 191, 122, 0.14);
+  --color-on-accent: #12151c;
+  --color-text: #faf7f2;
+  --color-muted: #ebe3d9;
+  --color-subtle: #c5cedb;
+  --color-focus-ring: rgba(232, 205, 144, 0.55);
+  --shadow-soft: 0 22px 54px rgba(0, 0, 0, 0.42);
+  --shadow-card: 0 18px 44px rgba(0, 0, 0, 0.32);
   --max-width: 72rem;
 }
 
@@ -21,18 +24,18 @@ html {
   min-height: 100%;
   background-color: #070a10;
   background:
-    radial-gradient(circle at top left, rgba(201, 166, 107, 0.14), transparent 32%),
-    radial-gradient(circle at right 20%, rgba(91, 110, 148, 0.18), transparent 28%),
-    linear-gradient(180deg, #05070b 0%, #0b1018 52%, #070a10 100%);
+    radial-gradient(circle at top left, rgba(223, 191, 122, 0.16), transparent 34%),
+    radial-gradient(circle at right 22%, rgba(110, 132, 172, 0.22), transparent 30%),
+    linear-gradient(180deg, #04060a 0%, #0c121c 48%, #080b11 100%);
 }
 
 body {
   min-height: 100%;
   color: var(--color-text);
   background:
-    radial-gradient(circle at top left, rgba(201, 166, 107, 0.14), transparent 32%),
-    radial-gradient(circle at right 20%, rgba(91, 110, 148, 0.18), transparent 28%),
-    linear-gradient(180deg, #05070b 0%, #0b1018 52%, #070a10 100%);
+    radial-gradient(circle at top left, rgba(223, 191, 122, 0.16), transparent 34%),
+    radial-gradient(circle at right 22%, rgba(110, 132, 172, 0.22), transparent 30%),
+    linear-gradient(180deg, #04060a 0%, #0c121c 48%, #080b11 100%);
 }
 
 #root {
@@ -54,6 +57,19 @@ video {
 
 a {
   color: inherit;
+}
+
+a:focus-visible,
+button:focus-visible,
+.button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+.button:focus:not(:focus-visible) {
+  outline: none;
 }
 
 p {
@@ -112,17 +128,17 @@ p {
 .site-banner {
   height: 0.85rem;
   background:
-    linear-gradient(90deg, transparent 0%, rgba(201, 166, 107, 0.72) 16%, transparent 34%),
-    linear-gradient(90deg, rgba(8, 10, 14, 0.18), rgba(34, 43, 58, 0.42));
+    linear-gradient(90deg, transparent 0%, rgba(223, 191, 122, 0.78) 16%, transparent 34%),
+    linear-gradient(90deg, rgba(8, 10, 14, 0.22), rgba(34, 43, 58, 0.48));
   border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .site-nav {
   padding: 0.85rem 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(16px);
-  background: rgba(7, 11, 17, 0.8);
+  background: rgba(7, 11, 17, 0.92);
 }
 
 .site-nav__brand {
@@ -130,11 +146,11 @@ p {
 }
 
 .site-nav__toggle {
-  border-color: rgba(201, 166, 107, 0.32);
+  border-color: rgba(223, 191, 122, 0.45);
 }
 
-.site-nav__toggle:focus {
-  box-shadow: 0 0 0 0.12rem rgba(201, 166, 107, 0.24);
+.site-nav__toggle:focus-visible {
+  box-shadow: 0 0 0 0.18rem var(--color-focus-ring);
 }
 
 .site-nav__links {
@@ -156,7 +172,7 @@ p {
 .site-nav__links .nav-link:focus-visible,
 .site-nav__links .nav-link.active {
   color: var(--color-text) !important;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.1);
   transform: translateY(-1px);
 }
 
@@ -244,6 +260,7 @@ p {
   font-size: clamp(2.4rem, 7vw, 5rem);
   font-weight: 500;
   line-height: 0.96;
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.55);
 }
 
 .hero__copy {
@@ -251,6 +268,7 @@ p {
   color: var(--color-muted);
   font-size: clamp(1rem, 1rem + 0.45vw, 1.22rem);
   line-height: 1.7;
+  text-shadow: 0 1px 20px rgba(0, 0, 0, 0.55);
 }
 
 .hero__actions {
@@ -281,13 +299,24 @@ p {
 
 .button--primary {
   background: var(--color-accent);
-  color: #101217;
+  color: var(--color-on-accent);
+}
+
+.button--primary:hover,
+.button--primary:focus-visible {
+  background: var(--color-accent-hover);
 }
 
 .button--secondary {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.22);
   color: var(--color-text);
+}
+
+.button--secondary:hover,
+.button--secondary:focus-visible {
+  border-color: rgba(223, 191, 122, 0.55);
+  background: rgba(223, 191, 122, 0.08);
 }
 
 .page-intro {
@@ -305,8 +334,12 @@ p {
 .notice-card,
 .leadership-card,
 .expertise-card {
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  background: linear-gradient(180deg, rgba(18, 23, 32, 0.95), rgba(9, 13, 19, 0.96));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(
+    180deg,
+    rgba(22, 29, 40, 0.97),
+    rgba(11, 16, 24, 0.98)
+  );
   border-radius: 1.4rem;
   box-shadow: var(--shadow-card);
 }
@@ -383,7 +416,8 @@ p {
   gap: 0.2rem;
   padding: 0.9rem 1rem;
   border-radius: 1rem;
-  background: rgba(7, 11, 17, 0.72);
+  background: rgba(7, 11, 17, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(14px);
 }
 
@@ -411,9 +445,9 @@ p {
 
 .feature-list li {
   padding: 1rem 1.1rem;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.045);
 }
 
 .feature-list strong {
@@ -479,6 +513,14 @@ p {
 
 .contact-note a {
   color: var(--color-accent);
+  font-weight: 600;
+}
+
+.contact-note a:hover,
+.contact-note a:focus-visible {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 
 .news-section {
@@ -507,7 +549,7 @@ p {
   display: grid;
   place-items: center;
   height: 100%;
-  color: rgba(245, 241, 234, 0.78);
+  color: rgba(250, 247, 242, 0.92);
   font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
   font-size: 1.05rem;
   letter-spacing: 0.08em;
