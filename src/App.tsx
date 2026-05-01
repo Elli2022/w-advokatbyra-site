@@ -4,8 +4,8 @@ import About from "./pages/About";
 import Contact from "./pages/Contacts";
 import Services from "./pages/Services";
 import Error from "./pages/Error";
-import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 import Disclaimer from "./pages/Disclaimer";
 
 function App() {
