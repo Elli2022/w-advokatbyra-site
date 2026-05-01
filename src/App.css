@@ -540,9 +540,16 @@ p {
   aspect-ratio: 4 / 3;
 }
 
-.news-card__media img {
+.news-card__media img.news-card__thumb {
   height: 100%;
+  width: 100%;
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.news-card__media img.news-card__thumb.news-card__thumb--loaded {
+  opacity: 1;
 }
 
 .news-card__fallback {

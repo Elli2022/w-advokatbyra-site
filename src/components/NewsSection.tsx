@@ -1,5 +1,67 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Container from "./Container";
+
+/** Krymp och leverera WebP via proxy — nyhets-URL:er är ofta megapixel-stora. */
+function newsThumbSources(originalUrl: string): {
+  src: string;
+  srcSet?: string;
+  sizes: string;
+} {
+  const trimmed = originalUrl.trim();
+  if (!/^https?:\/\//i.test(trimmed)) {
+    return {
+      src: trimmed,
+      sizes:
+        "(max-width: 767px) 100vw, (max-width: 991px) 50vw, 23vw",
+    };
+  }
+
+  const enc = encodeURIComponent(trimmed);
+  const base = `https://wsrv.nl/?url=${enc}&fit=cover&q=82&output=webp`;
+  return {
+    src: `${base}&w=720&h=540`,
+    srcSet: `${base}&w=480&h=360 480w, ${base}&w=720&h=540 720w, ${base}&w=960&h=720 960w`,
+    sizes:
+      "(max-width: 767px) 100vw, (max-width: 991px) 50vw, 23vw",
+  };
+}
+
+function NewsArticleThumb({ url }: { url: string }) {
+  const optimized = useMemo(() => newsThumbSources(url), [url]);
+  const [src, setSrc] = useState(optimized.src);
+  const [loaded, setLoaded] = useState(false);
+  const triedOriginal = useRef(false);
+
+  useEffect(() => {
+    setSrc(optimized.src);
+    setLoaded(false);
+    triedOriginal.current = false;
+  }, [url, optimized.src]);
+
+  return (
+    <img
+      src={src}
+      {...(optimized.srcSet
+        ? { srcSet: optimized.srcSet, sizes: optimized.sizes }
+        : { sizes: optimized.sizes })}
+      alt=""
+      loading="lazy"
+      decoding="async"
+      width={720}
+      height={540}
+      className={
+        loaded ? "news-card__thumb news-card__thumb--loaded" : "news-card__thumb"
+      }
+      onLoad={() => setLoaded(true)}
+      onError={() => {
+        if (!triedOriginal.current && url && src !== url) {
+          triedOriginal.current = true;
+          setSrc(url);
+        }
+      }}
+    />
+  );
+}
 
 type Article = {
   title?: string;
@@ -123,7 +185,7 @@ export function NewsSection() {
             >
               <div className="news-card__media" aria-hidden={!article.urlToImage}>
                 {article.urlToImage ? (
-                  <img src={article.urlToImage} alt="" />
+                  <NewsArticleThumb url={article.urlToImage} />
                 ) : (
                   <div className="news-card__fallback">W Advokatbyrå</div>
                 )}
