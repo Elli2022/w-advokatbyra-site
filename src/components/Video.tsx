@@ -1,19 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
-import BackgroundVideo1 from "../videos/BackgroundVideo1.mp4";
-import BackgroundVideo2 from "../videos/BackgroundVideo2.mp4";
-import BackgroundVideo3 from "../videos/BackgroundVideo3.mp4";
-import BackgroundVideo4 from "../videos/BackgroundVideo4.mp4";
+import React from "react";
 import Container from "./Container";
 
+/**
+ * Visuellt Malmö-inslag: AI-genererad bild (public/media) med mjuk Ken Burns-rörelse.
+ * Lägg en egen loop som public/videos/malmo-hero.mp4 om du vill byta till riktig video.
+ */
+const MALMO_AMBIENT_WEBP = `${process.env.PUBLIC_URL}/media/malmo-ambient-hero.webp`;
+
 function Video() {
-  const [currentVideo, setCurrentVideo] = useState(0);
-  const videos = [
-    BackgroundVideo1,
-    BackgroundVideo2,
-    BackgroundVideo3,
-    BackgroundVideo4,
-  ];
-  const intervalRef = useRef<number | null>(null);
   const highlights = [
     {
       title: "Affärsmässiga råd",
@@ -31,18 +25,6 @@ function Video() {
         "Vårt arbetssätt ger tydliga rekommendationer även när tidslinjen är kort och konsekvenserna stora.",
     },
   ];
-
-  useEffect(() => {
-    intervalRef.current = window.setInterval(() => {
-      setCurrentVideo((videoIndex) => (videoIndex + 1) % videos.length);
-    }, 7000);
-
-    return () => {
-      if (intervalRef.current !== null) {
-        window.clearInterval(intervalRef.current);
-      }
-    };
-  }, [videos.length]);
 
   return (
     <Container>
@@ -66,18 +48,15 @@ function Video() {
             ))}
           </ul>
         </div>
-        <div className="video-showcase">
-          <video
-            key={currentVideo}
-            className="video-showcase__media"
-            autoPlay
-            muted
-            loop
-            playsInline
-          >
-            <source src={videos[currentVideo]} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+        <div
+          className="video-showcase video-showcase--malmo-ambient"
+          aria-label="Stämning från Malmö och Öresundsregionen"
+        >
+          <div
+            className="video-showcase__ambient"
+            style={{ backgroundImage: `url(${MALMO_AMBIENT_WEBP})` }}
+            aria-hidden="true"
+          />
           <div className="video-showcase__overlay">
             <span>Malmö</span>
             <p>Mångfald, möten och möjligheter</p>

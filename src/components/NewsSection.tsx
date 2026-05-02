@@ -11,8 +11,7 @@ function newsThumbSources(originalUrl: string): {
   if (!/^https?:\/\//i.test(trimmed)) {
     return {
       src: trimmed,
-      sizes:
-        "(max-width: 767px) 100vw, (max-width: 991px) 50vw, 23vw",
+      sizes: "(max-width: 767px) 100vw, (max-width: 991px) 50vw, 23vw",
     };
   }
 
@@ -21,8 +20,7 @@ function newsThumbSources(originalUrl: string): {
   return {
     src: `${base}&w=720&h=540`,
     srcSet: `${base}&w=480&h=360 480w, ${base}&w=720&h=540 720w, ${base}&w=960&h=720 960w`,
-    sizes:
-      "(max-width: 767px) 100vw, (max-width: 991px) 50vw, 23vw",
+    sizes: "(max-width: 767px) 100vw, (max-width: 991px) 50vw, 23vw",
   };
 }
 
@@ -70,10 +68,44 @@ type Article = {
   urlToImage?: string;
   publishedAt?: string;
   category?: string;
+  source?: { name?: string };
 };
+
+function isHttpImageUrl(url: string | undefined): boolean {
+  if (!url || typeof url !== "string") {
+    return false;
+  }
+  const u = url.trim();
+  return /^https?:\/\//i.test(u);
+}
+
+/** Prioriterar artiklar med giltig bild-URL så kort inte fastnar på “W Advokatbyrå”. */
+function pickDisplayArticles(list: Article[], max: number): Article[] {
+  const titled = list.filter((a) => a.title && String(a.title).trim().length > 0);
+  const withImg = titled.filter((a) => isHttpImageUrl(a.urlToImage));
+  const withoutImg = titled.filter((a) => !isHttpImageUrl(a.urlToImage));
+  const merged = [...withImg, ...withoutImg];
+  const seen = new Set<string>();
+  const unique: Article[] = [];
+  for (const a of merged) {
+    const key = (a.url ?? a.title ?? "").trim();
+    if (!key || seen.has(key)) {
+      continue;
+    }
+    seen.add(key);
+    unique.push(a);
+    if (unique.length >= max) {
+      break;
+    }
+  }
+  return unique.slice(0, max);
+}
+
+type LoadState = "loading" | "success" | "error";
 
 export function NewsSection() {
   const [articles, setArticles] = useState<Article[]>([]);
+  const [loadState, setLoadState] = useState<LoadState>("loading");
   const [error, setError] = useState<string | null>(null);
 
   const fallbackArticles: Article[] = [
@@ -104,41 +136,76 @@ export function NewsSection() {
   ];
 
   useEffect(() => {
-    let isMounted = true;
+    const ac = new AbortController();
+    const retryDelaysMs = [0, 750, 1600];
 
-    async function fetchArticles() {
-      try {
-        const response = await fetch("/.netlify/functions/news-proxy");
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
+    async function loadArticles() {
+      setLoadState("loading");
+      setError(null);
+
+      for (let attempt = 0; attempt < retryDelaysMs.length; attempt++) {
+        if (ac.signal.aborted) {
+          return;
         }
-
-        const data = await response.json();
-        if (!isMounted) {
+        if (retryDelaysMs[attempt] > 0) {
+          await new Promise((r) => setTimeout(r, retryDelaysMs[attempt]));
+        }
+        if (ac.signal.aborted) {
           return;
         }
 
-        if (data.articles && Array.isArray(data.articles)) {
-          setArticles(data.articles.slice(0, 4));
-        } else {
-          setError("Inga aktuella artiklar kunde hämtas just nu.");
-        }
-      } catch (fetchError) {
-        if (!isMounted) {
-          return;
-        }
+        try {
+          const response = await fetch("/.netlify/functions/news-proxy", {
+            signal: ac.signal,
+            headers: { Accept: "application/json" },
+            cache: "no-store",
+          });
 
-        setError(
-          "Det uppstod ett fel när vi försökte hämta artiklar. Här visar vi i stället några ämnen vi ofta hjälper våra klienter med."
-        );
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+          }
+
+          const data = (await response.json()) as {
+            articles?: Article[];
+            status?: string;
+            message?: string;
+          };
+
+          if (ac.signal.aborted) {
+            return;
+          }
+
+          const raw = data.articles;
+          if (!Array.isArray(raw) || raw.length === 0) {
+            throw new Error("Inga artiklar i svar");
+          }
+
+          const picked = pickDisplayArticles(raw, 4);
+          if (picked.length === 0) {
+            throw new Error("Tomt urval");
+          }
+
+          setArticles(picked);
+          setLoadState("success");
+          return;
+        } catch {
+          if (ac.signal.aborted) {
+            return;
+          }
+          if (attempt === retryDelaysMs.length - 1) {
+            setArticles([]);
+            setLoadState("error");
+            setError(
+              "Det uppstod ett fel när vi försökte hämta artiklar. Här visar vi i stället några ämnen vi ofta hjälper våra klienter med."
+            );
+          }
+        }
       }
     }
 
-    fetchArticles();
+    void loadArticles();
 
-    return () => {
-      isMounted = false;
-    };
+    return () => ac.abort();
   }, []);
 
   function formatDate(date?: string) {
@@ -158,7 +225,7 @@ export function NewsSection() {
     }).format(parsedDate);
   }
 
-  const itemsToRender = articles.length > 0 ? articles : fallbackArticles;
+  const itemsToRender = loadState === "success" ? articles : fallbackArticles;
 
   return (
     <Container>
@@ -178,44 +245,66 @@ export function NewsSection() {
           </div>
         ) : null}
         <div className="news-grid">
-          {itemsToRender.map((article, index) => (
-            <article
-              className="news-card"
-              key={article.url ?? article.title ?? index}
-            >
-              <div className="news-card__media" aria-hidden={!article.urlToImage}>
-                {article.urlToImage ? (
-                  <NewsArticleThumb url={article.urlToImage} />
-                ) : (
-                  <div className="news-card__fallback">W Advokatbyrå</div>
-                )}
-              </div>
-              <div className="content-stack">
-                <p className="news-card__meta">
-                  {article.category ?? "Affärsjuridik"} •{" "}
-                  {formatDate(article.publishedAt)}
-                </p>
-                <h3>
-                  {article.url ? (
-                    <a
-                      className="news-card__link"
-                      href={article.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {article.title ?? "Ny artikel"}
-                    </a>
-                  ) : (
-                    article.title ?? "Ny artikel"
-                  )}
-                </h3>
-                <p>
-                  {article.description ??
-                    "Läs mer om hur vi arbetar med affärsjuridik, riskhantering och kommersiella beslut."}
-                </p>
-              </div>
-            </article>
-          ))}
+          {loadState === "loading"
+            ? Array.from({ length: 4 }).map((_, index) => (
+                <article
+                  className="news-card news-card--skeleton"
+                  key={`news-skeleton-${index}`}
+                  aria-busy="true"
+                  aria-label="Laddar nyhet"
+                >
+                  <div className="news-card__media" />
+                  <div className="content-stack">
+                    <span className="news-card__skeleton-line news-card__skeleton-line--short" />
+                    <span className="news-card__skeleton-line news-card__skeleton-line--title" />
+                    <span className="news-card__skeleton-line" />
+                    <span className="news-card__skeleton-line" />
+                  </div>
+                </article>
+              ))
+            : itemsToRender.map((article, index) => (
+                <article
+                  className="news-card"
+                  key={article.url ?? article.title ?? index}
+                >
+                  <div
+                    className="news-card__media"
+                    aria-hidden={!article.urlToImage}
+                  >
+                    {article.urlToImage && isHttpImageUrl(article.urlToImage) ? (
+                      <NewsArticleThumb url={article.urlToImage} />
+                    ) : (
+                      <div className="news-card__fallback">W Advokatbyrå</div>
+                    )}
+                  </div>
+                  <div className="content-stack">
+                    <p className="news-card__meta">
+                      {article.category ??
+                        article.source?.name ??
+                        "Affärsjuridik"}{" "}
+                      • {formatDate(article.publishedAt)}
+                    </p>
+                    <h3>
+                      {article.url ? (
+                        <a
+                          className="news-card__link"
+                          href={article.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {article.title ?? "Ny artikel"}
+                        </a>
+                      ) : (
+                        article.title ?? "Ny artikel"
+                      )}
+                    </h3>
+                    <p>
+                      {article.description ??
+                        "Läs mer om hur vi arbetar med affärsjuridik, riskhantering och kommersiella beslut."}
+                    </p>
+                  </div>
+                </article>
+              ))}
         </div>
       </section>
     </Container>
