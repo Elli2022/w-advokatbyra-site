@@ -102,45 +102,85 @@ function pickDisplayArticles(list: Article[], max: number): Article[] {
 }
 
 type LoadState = "loading" | "success" | "error";
+const NEWS_CACHE_KEY = "news:cards:v1";
+const NEWS_CACHE_TTL_MS = 10 * 60 * 1000;
+const FALLBACK_ARTICLES: Article[] = [
+  {
+    title: "Avtal som håller även när affären förändras",
+    description:
+      "Så skapar vi tydliga ramar för kommersiella relationer där både risk och tempo behöver balanseras.",
+    category: "Insikt",
+  },
+  {
+    title: "Tre frågor att ställa inför en investering",
+    description:
+      "En strukturerad juridisk genomgång tidigt i processen sparar både tid och förtroende längre fram.",
+    category: "M&A",
+  },
+  {
+    title: "Vad innebär ett starkt compliance-arbete i praktiken?",
+    description:
+      "Vi tittar på hur policy, uppföljning och kultur kan arbeta tillsammans i ett växande bolag.",
+    category: "Compliance",
+  },
+  {
+    title: "Tvister hanteras bäst innan de uppstår",
+    description:
+      "Genomtänkta processer och rätt dokumentation är ofta det som avgör om en konflikt eskalerar eller löses snabbt.",
+    category: "Tvistelösning",
+  },
+];
+
+function readCachedArticles(): Article[] | null {
+  try {
+    const raw = sessionStorage.getItem(NEWS_CACHE_KEY);
+    if (!raw) {
+      return null;
+    }
+    const parsed = JSON.parse(raw) as { at?: number; articles?: Article[] };
+    if (
+      !parsed.at ||
+      Date.now() - parsed.at > NEWS_CACHE_TTL_MS ||
+      !Array.isArray(parsed.articles)
+    ) {
+      return null;
+    }
+    return pickDisplayArticles(parsed.articles, 4);
+  } catch {
+    return null;
+  }
+}
+
+function writeCachedArticles(items: Article[]) {
+  try {
+    sessionStorage.setItem(
+      NEWS_CACHE_KEY,
+      JSON.stringify({ at: Date.now(), articles: items })
+    );
+  } catch {
+    // Ignore quota/private-mode failures.
+  }
+}
 
 export function NewsSection() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loadState, setLoadState] = useState<LoadState>("loading");
   const [error, setError] = useState<string | null>(null);
 
-  const fallbackArticles: Article[] = [
-    {
-      title: "Avtal som håller även när affären förändras",
-      description:
-        "Så skapar vi tydliga ramar för kommersiella relationer där både risk och tempo behöver balanseras.",
-      category: "Insikt",
-    },
-    {
-      title: "Tre frågor att ställa inför en investering",
-      description:
-        "En strukturerad juridisk genomgång tidigt i processen sparar både tid och förtroende längre fram.",
-      category: "M&A",
-    },
-    {
-      title: "Vad innebär ett starkt compliance-arbete i praktiken?",
-      description:
-        "Vi tittar på hur policy, uppföljning och kultur kan arbeta tillsammans i ett växande bolag.",
-      category: "Compliance",
-    },
-    {
-      title: "Tvister hanteras bäst innan de uppstår",
-      description:
-        "Genomtänkta processer och rätt dokumentation är ofta det som avgör om en konflikt eskalerar eller löses snabbt.",
-      category: "Tvistelösning",
-    },
-  ];
-
   useEffect(() => {
     const ac = new AbortController();
     const retryDelaysMs = [0, 750, 1600];
+    const cached = readCachedArticles();
+
+    if (cached && cached.length > 0) {
+      setArticles(cached);
+      setLoadState("success");
+      setError(null);
+    } else {
+      setLoadState("loading");
+    }
 
     async function loadArticles() {
-      setLoadState("loading");
       setError(null);
 
       for (let attempt = 0; attempt < retryDelaysMs.length; attempt++) {
@@ -187,17 +227,18 @@ export function NewsSection() {
 
           setArticles(picked);
           setLoadState("success");
+          writeCachedArticles(picked);
           return;
         } catch {
           if (ac.signal.aborted) {
             return;
           }
-          if (attempt === retryDelaysMs.length - 1) {
-            setArticles([]);
-            setLoadState("error");
-            setError(
-              "Det uppstod ett fel när vi försökte hämta artiklar. Här visar vi i stället några ämnen vi ofta hjälper våra klienter med."
-            );
+          if (attempt === retryDelaysMs.length - 1 && (!cached || cached.length === 0)) {
+            // Graceful degradation: visa lokalt innehåll utan felruta för besökaren.
+            setArticles(FALLBACK_ARTICLES);
+            setLoadState("success");
+            setError(null);
+            console.warn("Nyhetsflödet kunde inte hämtas, visar fallback-innehåll.");
           }
         }
       }
@@ -225,7 +266,7 @@ export function NewsSection() {
     }).format(parsedDate);
   }
 
-  const itemsToRender = loadState === "success" ? articles : fallbackArticles;
+  const itemsToRender = loadState === "success" ? articles : FALLBACK_ARTICLES;
 
   return (
     <Container>

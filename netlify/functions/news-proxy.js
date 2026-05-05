@@ -18,10 +18,17 @@ exports.handler = async function (event) {
     };
   }
 
-  const url = `https://newsapi.org/v2/everything?q=juridik&apiKey=${API_KEY}`;
+  const params = new URLSearchParams({
+    q: '(juridik OR advokat) AND (Sverige OR Malmö)',
+    language: "sv",
+    sortBy: "publishedAt",
+    pageSize: "12",
+    apiKey: API_KEY,
+  });
+  const url = `https://newsapi.org/v2/everything?${params.toString()}`;
 
   try {
-    const response = await axios.get(url);
+    const response = await axios.get(url, { timeout: 4500 });
     return {
       statusCode: 200,
       headers: {
