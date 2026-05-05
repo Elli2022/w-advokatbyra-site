@@ -2,34 +2,34 @@
 
 ## Rekommenderad branschpraxis för det här repot
 
-- Använd `master` som produktionsgren för den version som ska ligga live.
-- Spara större milstolpar som separata grenar under `version/*` i stället för att skapa nya repositories.
-- Märk produktionsklara leveranser med Git-tags, till exempel `release/2026-04-30-mobile-first-refresh`.
-- Gör vanliga ändringar via featuregrenar och mergea tillbaka till `master` när build och test är gröna.
+- Använd `master` som enda långlivade produktionsgren.
+- Gör arbete i kortlivade feature-grenar och mergea tillbaka till `master`.
+- Skapa kronologiska, annoterade Git-tags (`vMAJOR.MINOR.PATCH`) för releaser.
+- Dokumentera releaser i `CHANGELOG.md` och gärna i GitHub Releases.
+- Undvik långlivade `version/*`-grenar om du inte underhåller flera versioner parallellt.
 
-## Befintliga snapshot-grenar
+## Release-modell (SemVer)
 
-Det här repot har redan en bra grund att bygga vidare på med följande snapshots:
+- `MAJOR`: brytande ändringar.
+- `MINOR`: ny funktionalitet utan brytande ändringar.
+- `PATCH`: buggfixar, förbättringar och små justeringar.
 
-- `version/0-original`
-- `version/1-foundation`
-- `version/2-modern-ui`
-- `version/3-robust`
-- `version/4-node24-netlify`
+Exempel:
 
-Nästa naturliga steg efter den här uppdateringen är att skapa en ny snapshotgren, till exempel `version/5-mobile-first-refresh`.
+- `v1.2.0` -> ny funktion eller större UI-förbättring.
+- `v1.2.1` -> mindre fix utan ändrat API/beteende för konsumenter.
 
 ## Netlify-flöde
 
-- `netlify.toml` styr byggkommando, publiceringsmapp och SPA-routing.
-- Om GitHub-repot redan är kopplat direkt till Netlify kommer varje push till `master` att kunna deployas kontinuerligt därifrån.
-- Workflow-filen `.github/workflows/netlify-deploy.yml` bygger och testar repot på pull requests och pushar.
-- Samma workflow kan även deploya till Netlify vid push till `master` om GitHub-secrets `NETLIFY_AUTH_TOKEN` och `NETLIFY_SITE_ID` finns satta.
+- `netlify.toml` styr build-kommando, publiceringsmapp och functions.
+- Netlify Git integration bör deploya automatiskt vid push till `master`.
+- `.github/workflows/netlify-deploy.yml` används för CI-validering (test + build).
+- Deploy ska i första hand observeras i Netlify-dashboard för rätt site.
 
 ## Praktiskt arbetssätt framåt
 
-1. Skapa en featuregren för större ändringar.
-2. Kör tester och build lokalt eller via GitHub Actions.
-3. Mergea till `master` när ändringen är redo.
-4. Skapa en ny `version/*`-gren eller en release-tag när du vill frysa ett viktigt steg i historiken.
+1. Skapa en feature-gren från `master`.
+2. Kör `npm run test:ci` och `npm run build`.
+3. Öppna PR och mergea till `master`.
+4. Tagga releasen, uppdatera changelog och publicera GitHub Release.
 

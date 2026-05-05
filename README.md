@@ -88,6 +88,13 @@ netlify/
 - This repo now uses GitHub Actions as CI validation (test/build).
 - Production deployment is expected to be handled by Netlify's Git integration.
 
+## Versioning and Releases
+
+- The repository uses a single long-lived production branch: `master`.
+- Releases are tracked with semantic version tags (`vMAJOR.MINOR.PATCH`).
+- Human-readable release history is maintained in `CHANGELOG.md`.
+- Detailed workflow guidance is documented in `docs/versioning-and-deploy.md`.
+
 ## Contributing
 
 1. Create a branch from `master`.
