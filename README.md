@@ -2,6 +2,21 @@
 
 Production website for W Advokatbyrå, built with React and deployed on Netlify.
 
+## Version history
+
+| Branch | Description | Date | Original repo |
+|--------|-------------|------|---------------|
+| `version/site` | Initial site | 2023-09-24 | w-advokatbyra-site |
+| `version/master` | Master version | 2023-10-26 | advokatbyra-master |
+| `version/wernberg` | Wernberg | 2023-11-02 | advokatbyra-wernberg |
+| `version/v3` | Version 3 | 2024-03-24 | advokatbyra-3 |
+| `master` | Latest production site | 2026+ | w-advokatbyra-site |
+
+```bash
+git checkout version/v3
+git checkout master
+```
+
 ## Live Site
 
 - [w-advokatbyra-malmo.netlify.app](https://w-advokatbyra-malmo.netlify.app)
