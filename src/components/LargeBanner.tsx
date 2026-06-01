@@ -15,6 +15,7 @@ function LargeBanner() {
             width={1920}
             height={1280}
             decoding="async"
+            loading="eager"
           />
         </div>
         <div className="hero__overlay" />

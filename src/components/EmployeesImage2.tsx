@@ -1,13 +1,17 @@
-import employees2 from "../images/generated/client-meeting.png";
+const MEETING_IMAGE = `${process.env.PUBLIC_URL}/media/client-meeting.webp`;
 
 function EmployeesImage2() {
   return (
     <section className="section-shell">
       <div className="image-panel">
         <img
-          src={employees2}
+          src={MEETING_IMAGE}
           alt="Advokater i modern kontorsmiljö"
           className="feature-image"
+          width={1400}
+          height={934}
+          loading="lazy"
+          decoding="async"
         />
       </div>
     </section>

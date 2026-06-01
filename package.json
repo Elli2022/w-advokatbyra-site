@@ -28,6 +28,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:ci": "react-scripts test --watchAll=false",
+    "screenshots": "node scripts/capture-screenshots.mjs",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -50,6 +51,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@babel/plugin-transform-private-property-in-object": "^7.24.5"
+    "@babel/plugin-transform-private-property-in-object": "^7.24.5",
+    "puppeteer-core": "^24.8.2"
   }
 }

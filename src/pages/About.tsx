@@ -3,8 +3,9 @@ import Banner from "../components/Banner";
 import Container from "../components/Container";
 import Employes from "../components/Employes";
 import HorisontalRule from "../components/HorisontalRule";
-import managingDirector from "../images/generated/managing-partner.png";
 import Footer from "../components/Footer";
+
+const MANAGING_PARTNER_IMAGE = `${process.env.PUBLIC_URL}/media/managing-partner.webp`;
 
 function About() {
   const values = [
@@ -85,9 +86,13 @@ function About() {
         <Container className="leadership-layout">
           <div className="leadership-card">
             <img
-              src={managingDirector}
+              src={MANAGING_PARTNER_IMAGE}
               alt="Managing partner i ett mötesrum"
               className="leadership-image"
+              width={1200}
+              height={1800}
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <div className="content-stack">

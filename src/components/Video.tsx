@@ -1,10 +1,5 @@
-import React from "react";
 import Container from "./Container";
 
-/**
- * Visuellt Malmö-inslag: AI-genererad bild (public/media) med mjuk Ken Burns-rörelse.
- * Lägg en egen loop som public/videos/malmo-hero.mp4 om du vill byta till riktig video.
- */
 const MALMO_AMBIENT_WEBP = `${process.env.PUBLIC_URL}/media/malmo-ambient-hero.webp`;
 
 function Video() {
@@ -52,10 +47,14 @@ function Video() {
           className="video-showcase video-showcase--malmo-ambient"
           aria-label="Stämning från Malmö och Öresundsregionen"
         >
-          <div
+          <img
+            src={MALMO_AMBIENT_WEBP}
+            alt=""
             className="video-showcase__ambient"
-            style={{ backgroundImage: `url(${MALMO_AMBIENT_WEBP})` }}
-            aria-hidden="true"
+            width={1536}
+            height={1024}
+            loading="lazy"
+            decoding="async"
           />
           <div className="video-showcase__overlay">
             <span>Malmö</span>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>W Advokatbyra Favicon</title>
+  <defs>
+    <style>
+      .bg { fill: #0b1018; }
+      .ring { fill: none; stroke: #dfbf7a; stroke-width: 3; }
+      .mark {
+        fill: #dfbf7a;
+        font-family: "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+        font-weight: 700;
+        font-size: 34px;
+      }
+    </style>
+  </defs>
+  <rect width="64" height="64" rx="14" class="bg" />
+  <circle cx="32" cy="32" r="22" class="ring" />
+  <text x="32" y="43" text-anchor="middle" class="mark">W</text>
+</svg>

@@ -28,12 +28,10 @@ function newsThumbSources(originalUrl: string): {
 function NewsArticleThumb({ url }: { url: string }) {
   const optimized = useMemo(() => newsThumbSources(url), [url]);
   const [src, setSrc] = useState(optimized.src);
-  const [loaded, setLoaded] = useState(false);
   const triedOriginal = useRef(false);
 
   useEffect(() => {
     setSrc(optimized.src);
-    setLoaded(false);
     triedOriginal.current = false;
   }, [url, optimized.src]);
 
@@ -48,10 +46,7 @@ function NewsArticleThumb({ url }: { url: string }) {
       decoding="async"
       width={720}
       height={540}
-      className={
-        loaded ? "news-card__thumb news-card__thumb--loaded" : "news-card__thumb"
-      }
-      onLoad={() => setLoaded(true)}
+      className="news-card__thumb"
       onError={() => {
         if (!triedOriginal.current && url && src !== url) {
           triedOriginal.current = true;

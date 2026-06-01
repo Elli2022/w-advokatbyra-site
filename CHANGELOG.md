@@ -6,6 +6,15 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [v1.4.1] - 2026-06-01
+
+### Added
+- GitHub Pages gallery in `docs/` with desktop and mobile screenshots.
+- `npm run screenshots` script to refresh gallery images from the live site.
+
+### Changed
+- Smoother image loading: WebP assets for about/team sections, removed fade-in and `content-visibility` jank, reserved layout space for hero and feature images.
+
 ## [v1.4.0] - 2026-06-01
 
 ### Added

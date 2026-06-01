@@ -21,6 +21,18 @@ git checkout master
 
 - [w-advokatbyra-malmo.netlify.app](https://w-advokatbyra-malmo.netlify.app)
 
+## Screenshots (GitHub Pages)
+
+Skärmdumpar och sidöversikt publiceras på GitHub Pages:
+
+- [elli2022.github.io/w-advokatbyra-site](https://elli2022.github.io/w-advokatbyra-site/)
+
+Uppdatera bilderna efter större UI-ändringar:
+
+```bash
+npm run screenshots
+```
+
 ## Tech Stack
 
 - React (Create React App)
