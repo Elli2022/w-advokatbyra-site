@@ -2,6 +2,20 @@
 
 Production website for W Advokatbyrå, built with React and deployed on Netlify.
 
+**Live:** [w-advokatbyra-malmo.netlify.app](https://w-advokatbyra-malmo.netlify.app) · **Skärmdumpar:** [GitHub Pages-galleri](https://elli2022.github.io/w-advokatbyra-site/)
+
+## Screenshots
+
+| Startsida (desktop) | Startsida (mobil) |
+| --- | --- |
+| [![Startsida desktop](docs/screenshots/previews/home.jpg)](https://w-advokatbyra-malmo.netlify.app/) | [![Startsida mobil](docs/screenshots/previews/home-mobile.jpg)](https://w-advokatbyra-malmo.netlify.app/) |
+
+| Om oss | Tjänster | Kontakt |
+| --- | --- | --- |
+| [![Om oss](docs/screenshots/previews/about.jpg)](https://w-advokatbyra-malmo.netlify.app/about) | [![Tjänster](docs/screenshots/previews/services.jpg)](https://w-advokatbyra-malmo.netlify.app/services) | [![Kontakt](docs/screenshots/previews/contact.jpg)](https://w-advokatbyra-malmo.netlify.app/contact) |
+
+Fler bilder i full längd: [elli2022.github.io/w-advokatbyra-site](https://elli2022.github.io/w-advokatbyra-site/)
+
 ## Version history
 
 | Branch | Description | Date | Original repo |
@@ -15,22 +29,6 @@ Production website for W Advokatbyrå, built with React and deployed on Netlify.
 ```bash
 git checkout version/v3
 git checkout master
-```
-
-## Live Site
-
-- [w-advokatbyra-malmo.netlify.app](https://w-advokatbyra-malmo.netlify.app)
-
-## Screenshots (GitHub Pages)
-
-Skärmdumpar och sidöversikt publiceras på GitHub Pages:
-
-- [elli2022.github.io/w-advokatbyra-site](https://elli2022.github.io/w-advokatbyra-site/)
-
-Uppdatera bilderna efter större UI-ändringar:
-
-```bash
-npm run screenshots
 ```
 
 ## Tech Stack
@@ -108,6 +106,14 @@ netlify/
 .github/workflows/
   netlify-deploy.yml # CI validation workflow
 ```
+
+## Screenshots (uppdatera)
+
+```bash
+npm run screenshots
+```
+
+Committa `docs/screenshots/` och pusha — README och [GitHub Pages](https://elli2022.github.io/w-advokatbyra-site/) uppdateras då.
 
 ## Deployment
 
