@@ -1,6 +1,6 @@
 # W Advokatbyrå Website
 
-Production website for W Advokatbyrå, built with React and deployed on Netlify.
+**Law firm website** (*advokatbyrå* = law firm) for W Advokatbyrå in Malmö — built with React and deployed on Netlify.
 
 **Live:** [w-advokatbyra-malmo.netlify.app](https://w-advokatbyra-malmo.netlify.app) · **Skärmdumpar:** [GitHub Pages-galleri](https://elli2022.github.io/w-advokatbyra-site/)
 
