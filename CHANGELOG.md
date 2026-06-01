@@ -6,6 +6,9 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+- Faster initial load: optimized hero image (WebP), route/code splitting, and deferred news fetching below the fold.
+
 ### Docs
 - Align release/version documentation with tag-based workflow on `master`.
 

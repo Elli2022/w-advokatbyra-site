@@ -1,13 +1,21 @@
-import lawFirmBanner from "../images/generated/hero-law-firm.png";
 import { Link } from "react-router-dom";
 import Container from "./Container";
+
+const HERO_IMAGE = `${process.env.PUBLIC_URL}/media/hero-law-firm.webp`;
 
 function LargeBanner() {
   return (
     <Container>
       <section className="hero">
         <div className="hero__media" aria-hidden="true">
-          <img src={lawFirmBanner} alt="" className="hero__image" />
+          <img
+            src={HERO_IMAGE}
+            alt=""
+            className="hero__image"
+            width={1920}
+            height={1280}
+            decoding="async"
+          />
         </div>
         <div className="hero__overlay" />
         <div className="hero__content">

@@ -48,6 +48,17 @@ main {
   padding-bottom: 4rem;
 }
 
+.page-fallback,
+.section-placeholder {
+  min-height: 8rem;
+}
+
+.news-section,
+.feature-grid {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 640px;
+}
+
 img,
 video {
   display: block;

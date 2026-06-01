@@ -25,7 +25,7 @@ afterEach(() => {
 test("renders the home hero and navigation", async () => {
   render(<App />);
   expect(
-    screen.getByRole("heading", {
+    await screen.findByRole("heading", {
       name: /trygg juridisk rådgivning för företag och entreprenörer/i,
     })
   ).toBeInTheDocument();

@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Container from "./Container";
+import { useWhenVisible } from "../hooks/useWhenVisible";
 
 /** Krymp och leverera WebP via proxy — nyhets-URL:er är ofta megapixel-stora. */
 function newsThumbSources(originalUrl: string): {
@@ -101,7 +102,7 @@ function pickDisplayArticles(list: Article[], max: number): Article[] {
   return unique.slice(0, max);
 }
 
-type LoadState = "loading" | "success" | "error";
+type LoadState = "idle" | "loading" | "success";
 const NEWS_CACHE_KEY = "news:cards:v1";
 const NEWS_CACHE_TTL_MS = 10 * 60 * 1000;
 const FALLBACK_ARTICLES: Article[] = [
@@ -163,11 +164,16 @@ function writeCachedArticles(items: Article[]) {
 }
 
 export function NewsSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const isVisible = useWhenVisible(sectionRef);
   const [articles, setArticles] = useState<Article[]>([]);
-  const [loadState, setLoadState] = useState<LoadState>("loading");
-  const [error, setError] = useState<string | null>(null);
+  const [loadState, setLoadState] = useState<LoadState>("idle");
 
   useEffect(() => {
+    if (!isVisible) {
+      return;
+    }
+
     const ac = new AbortController();
     const retryDelaysMs = [0, 750, 1600];
     const cached = readCachedArticles();
@@ -175,13 +181,11 @@ export function NewsSection() {
     if (cached && cached.length > 0) {
       setArticles(cached);
       setLoadState("success");
-      setError(null);
     } else {
       setLoadState("loading");
     }
 
     async function loadArticles() {
-      setError(null);
 
       for (let attempt = 0; attempt < retryDelaysMs.length; attempt++) {
         if (ac.signal.aborted) {
@@ -237,7 +241,6 @@ export function NewsSection() {
             // Graceful degradation: visa lokalt innehåll utan felruta för besökaren.
             setArticles(FALLBACK_ARTICLES);
             setLoadState("success");
-            setError(null);
             console.warn("Nyhetsflödet kunde inte hämtas, visar fallback-innehåll.");
           }
         }
@@ -247,7 +250,7 @@ export function NewsSection() {
     void loadArticles();
 
     return () => ac.abort();
-  }, []);
+  }, [isVisible]);
 
   function formatDate(date?: string) {
     if (!date) {
@@ -270,7 +273,7 @@ export function NewsSection() {
 
   return (
     <Container>
-      <section className="news-section">
+      <section ref={sectionRef} className="news-section">
         <div className="content-stack">
           <p className="eyebrow">Aktuellt</p>
           <h2 className="section-title">Nyheter och insikter</h2>
@@ -279,12 +282,6 @@ export function NewsSection() {
             rådgivning relevant, aktuell och affärsnära.
           </p>
         </div>
-        {error ? (
-          <div className="notice-card">
-            <h3>Nyhetsflödet är tillfälligt otillgängligt</h3>
-            <p>{error}</p>
-          </div>
-        ) : null}
         <div className="news-grid">
           {loadState === "loading"
             ? Array.from({ length: 4 }).map((_, index) => (

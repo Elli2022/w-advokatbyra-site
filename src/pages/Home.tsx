@@ -1,10 +1,12 @@
+import { lazy, Suspense } from "react";
 import Navbar from "../components/Navbar";
 import Banner from "../components/Banner";
 import LargeBanner from "../components/LargeBanner";
-import NewsSection from "../components/NewsSection";
 import Footer from "../components/Footer";
-import Video from "../components/Video";
 import HorisontalRule from "../components/HorisontalRule";
+
+const Video = lazy(() => import("../components/Video"));
+const NewsSection = lazy(() => import("../components/NewsSection"));
 
 function Home() {
   return (
@@ -13,8 +15,12 @@ function Home() {
       <main>
         <Banner />
         <LargeBanner />
-        <Video />
-        <NewsSection />
+        <Suspense fallback={<div className="section-placeholder" aria-hidden="true" />}>
+          <Video />
+        </Suspense>
+        <Suspense fallback={<div className="section-placeholder" aria-hidden="true" />}>
+          <NewsSection />
+        </Suspense>
         <HorisontalRule />
       </main>
       <Footer />
