@@ -6,6 +6,11 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [v1.4.0] - 2026-06-01
+
+### Added
+- MIT `LICENSE` file and GitHub Releases for version history.
+
 ### Changed
 - Faster initial load: optimized hero image (WebP), route/code splitting, and deferred news fetching below the fold.
 
